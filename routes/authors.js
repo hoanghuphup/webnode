@@ -3,15 +3,15 @@ const router = express.Router()
 const Author= require('../models/author')
 
 router.get('/', async (req,res)=>{
-    let search={}
+    let searchOptions={}
     if(req.query.name!=null&&req.query.name!==''){
-        search.name=new RegExp(req.query.name,'i')
+        searchOptions.name=new RegExp(req.query.name,'i')
     }
     try{
-        const authors=await Author.find(search)
+        const authors=await Author.find(searchOptions)
         res.render('authors/index',{
             authors:authors,
-            search:req.query
+            searchOptions:req.query
         })
     }catch{
         res.redirect('/')
